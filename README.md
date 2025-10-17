@@ -1,4 +1,4 @@
-# AccuACL: Fisher-Optimal Active Continual Learning
+# AccuACL
 *Official implementation of the ICLR 2025 paper “Active Learning for Continual Learning: Keeping the Past Alive in the Present”*
 
 AccuACL introduces a **Fisher information–based perspective** to Active Continual Learning (ACL), proposing a unified query strategy that **balances the prevention of catastrophic forgetting** and **rapid adaptation to new tasks**.  
