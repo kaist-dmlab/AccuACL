@@ -5,7 +5,7 @@ AccuACL introduces a **Fisher information–based perspective** to Active Contin
 This repository provides reproducible implementations of the experiments presented in the ICLR 2025 paper and extends the Avalanche continual-learning framework with active-learning integration.
 
 ---
-
+    
 ## Overview
 
 Traditional Active Learning (AL) algorithms focus on selecting informative examples to improve new-task performance but overlook **stability across tasks**, which is a critical issue in Continual Learning (CL).  
@@ -359,3 +359,4 @@ url={https://openreview.net/forum?id=mnLmmtW7HO}
  
  
  
+
