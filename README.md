@@ -27,14 +27,12 @@ It leverages the **Fisher Information Matrix (FIM)** to quantify parameter impor
 - `avalanche/` – Embedded Avalanche fork with extensions for AccuACL.
 - `run_experiment.sh` – Example script
 
-## Dataset Configuration
+### Environment Variables
 
-Several benchmark paths in `acl/data.py` reference absolute locations 
-You can either:
-- Update these to match your local dataset paths, or  
-- Modify the data helper to download them dynamically.
-
-Checkpoints are saved under by default; adjust this in `acl/multi_round_baseline.py`.
+The following environment variables can be set to customize directory paths:
+`DATA_ROOT`: Root directory for datasets (default: `./data`)
+`WANDB_DIR`: Directory for Weights & Biases logs (default: `./wandb_logs`)
+`CHECKPOINT_DIR`: Directory for model checkpoints (default: `./checkpoints`)
 
 ## Citation
 

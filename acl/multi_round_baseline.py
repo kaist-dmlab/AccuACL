@@ -5,12 +5,11 @@ from tqdm import tqdm
 from copy import deepcopy, copy
 from datetime import datetime
 import gc
-os.environ["OMP_NUM_THREADS"] = "16" # export OMP_NUM_THREADS=1
-os.environ["OPENBLAS_NUM_THREADS"] = "16" # export OPENBLAS_NUM_THREADS=1
-os.environ["MKL_NUM_THREADS"] = "16" # export MKL_NUM_THREADS=1
-os.environ["VECLIB_MAXIMUM_THREADS"] = "16" # export VECLIB_MAXIMUM_THREADS=1
-os.environ["NUMEXPR_NUM_THREADS"] = "16" # export NUMEXPR_NUM_THREADS=1
-# os.environ["WANDB_SILENT"] = "true"
+os.environ["OMP_NUM_THREADS"] = "16"
+os.environ["OPENBLAS_NUM_THREADS"] = "16"
+os.environ["MKL_NUM_THREADS"] = "16"
+os.environ["VECLIB_MAXIMUM_THREADS"] = "16"
+os.environ["NUMEXPR_NUM_THREADS"] = "16"
 os.environ["WANDB_DISABLE_CODE"] = "true"
 os.environ["WANDB_CONSOLE"] = "off"
 os.environ["WANDB_DISABLE_GIT"] = "true"
@@ -36,7 +35,9 @@ from acl.deepal_utils import get_net, get_cl_strategy
 torch.set_num_threads(16)
 torch.multiprocessing.set_sharing_strategy('file_system')
 os.environ['WANDB_START_METHOD']="thread"
-os.environ['WANDB_DIR']=os.path.abspath('/data3/jhpark/')
+wandb_dir = os.environ.get('WANDB_DIR', os.path.abspath('./wandb_logs'))
+os.makedirs(wandb_dir, exist_ok=True)
+os.environ['WANDB_DIR'] = wandb_dir
 
 def seed_everything(seed):
     random.seed(seed)
@@ -55,7 +56,9 @@ def main(args):
     NUM_INIT_LB = args.nStart
     NUM_QUERY = args.nQuery
     NUM_ROUND = int((args.nEnd-NUM_INIT_LB)/args.nQuery)
-    fname = f'/data3/jhpark/ckpts/{args.al_strategy}_{args.scenario}_{args.cl_strategy}_{datetime.now()}.pkl'
+    ckpt_dir = os.environ.get('CHECKPOINT_DIR', os.path.abspath('./checkpoints'))
+    os.makedirs(ckpt_dir, exist_ok=True)
+    fname = f'{ckpt_dir}/{args.al_strategy}_{args.scenario}_{args.cl_strategy}_{datetime.now()}.pkl'
 
     device = torch.device(
         f"cuda"
@@ -186,7 +189,6 @@ if __name__ == '__main__':
     parser.add_argument("--scenario", type=str, default='SplitCIFAR10')
     parser.add_argument("--data", type=str, default='CIFAR10')
     parser.add_argument("--n_classes", type=int, default=10)
-    # parser.add_argument('--wandb', action=argparse.BooleanOptionalAction)
     parser.add_argument('--wandb', action='store_true')
 
     args = parser.parse_args()

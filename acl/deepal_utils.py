@@ -6,8 +6,6 @@ from avalanche.query_strategies import *
 from avalanche.training import *
 
 def get_net(name):
-    if name == 'MNIST':
-        return SimpleMLP(num_classes=10)
     if name == 'CIFAR10':
         return ResNet18(num_classes=10)
     elif name == 'CIFAR100':

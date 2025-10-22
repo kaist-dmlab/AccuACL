@@ -24,18 +24,6 @@ def get_model(name):
         if name == 'SplitCIFAR10':
             from avalanche.models.resnet18_32 import ResNet18_32, BasicBlock
             return ResNet18_32(BasicBlock, [2, 2, 2, 2], norm=True)
-        elif name == 'CORe50_ni':
-            from avalanche.models import ResNet18_128
-            return ResNet18_128(num_classes=10)
-        elif name == 'BlurryCIFAR10':
-            from avalanche.models.resnet18_32 import ResNet18_32, BasicBlock
-            return ResNet18_32(BasicBlock, [2,2,2,2], norm=True) 
-        elif name == "DomainNet":
-            from avalanche.models.resnet18_32 import ResNet18_32, BasicBlock
-            return ResNet18_32(BasicBlock, [2, 2, 2, 2], norm=True)
-        elif name == 'CLEAR':
-            from avalanche.models import ResNet18_128
-            return ResNet18_128(num_classes=11)
         else:
             print('no matching scenario')
             return

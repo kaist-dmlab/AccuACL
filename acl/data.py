@@ -11,6 +11,11 @@ from avalanche.benchmarks.classic.classic_benchmarks_utils import (
 import torch.utils.data as data
 import random
 
+def get_data_path(dataset_name):
+    """Get dataset path from environment or use default."""
+    data_root = os.environ.get('DATA_ROOT', os.path.abspath('./data'))
+    return os.path.join(data_root, dataset_name)
+
 def flatten_list(nested_list):
     return [item for sublist in nested_list for item in sublist]
 
@@ -116,13 +121,13 @@ def get_scenario(name, seed, cl_strategy):
             #     eval_transform=transform,
             #     num_classes=100,
             # )
-            return DomainNet('/data3/jhpark/DomainNet', 6)
+            return DomainNet(get_data_path('DomainNet'), 6)
         elif name == 'SplitMNIST':
             return SplitMNIST(5, fixed_class_order=list(range(0,10)))
         elif name == 'SplitImageNetR':
-            return ImageNet_R('/data3/jhpark/imagenet-r',10)
+            return ImageNet_R(get_data_path('imagenet-r'), 10)
         elif name == 'SplitNCT':
-            return SplitNCT('/data3/jhpark/nct', 4)
+            return SplitNCT(get_data_path('nct'), 4)
         elif name == 'SplitFood100':
             return SplitFood100(
                 10, input_size=(64,64),
